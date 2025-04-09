@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 import googleLogo from "../assets/google-logo.svg";
-import fbLogo from "../assets/facebook-log.svg";
 
 export default function Login() {
   const [ErrorMessage, setErrorMessage] = useState("");
@@ -94,7 +93,7 @@ export default function Login() {
                     )}
                   </p>
                   <p className="text-base mt-1">
-                    If you haven't an account. Please create here{" "}
+                    If you have not an account. Please create here{" "}
                     <Link to="/create-user" className="underline text-blue-600">
                       Sign Up
                     </Link>

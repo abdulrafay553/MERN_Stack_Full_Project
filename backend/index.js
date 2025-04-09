@@ -2,7 +2,6 @@ const express = require('express')
 const app = express();
 const cors = require('cors')
 const port = process.env.PORT || 5000;
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 // middleware
 app.use(cors());
@@ -94,31 +93,6 @@ async function run() {
             const result = await bookCollections.findOne(filter);
             res.send(result)
         })
-
-        // API to create checkout session
-        app.post("/create-checkout-session", async (req, res) => {
-            const { productIds, shippingOption } = req.body;
-
-            // Fetch product details from MongoDB
-            const products = await bookCollections.find({ _id: { $in: productIds } }).toArray();
-
-            // Format line items for Stripe
-            const lineItems = products.map((product) => ({
-                price_data: {
-                    currency: "usd",
-                    product_data: {
-                        name: product.bookTitle,
-                        images: [product.imageURL],
-                    },
-                    unit_amount: Math.round(product.Price * 100), // Amount in cents
-                    quantity: product.quantity,
-                },
-            }));
-
-            // Create checkout session
-        });
-
-
 
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");

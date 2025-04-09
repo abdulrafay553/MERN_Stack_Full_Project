@@ -36,9 +36,6 @@ export default function Shop() {
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
 
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   // loader
   if (loading) {
     return (
@@ -67,23 +64,21 @@ export default function Shop() {
             key={book._id}
             className="cursor-pointer"
           >
-            <Card key={book._id}>
-              <img
-                src={book.imageURL}
-                alt=""
-                // className="h-96"
-                style={{ height: "25em" }}
-              />
-              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                <p>{book.bookTitle.substring(0, 20)}</p>
-              </h5>
-              <p className="font-normal text-gray-700 dark:text-gray-400">
-                <p>{book.bookDescription.substring(0, 150)}</p>
-              </p>
-
-              <button className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
-                Buy Now
-              </button>
+            <Card key={book._id} className="h-full flex flex-col">
+              <img src={book.imageURL} alt="" style={{ height: "25em" }} />
+              <div className="flex flex-col flex-grow">
+                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white mb-2">
+                  <p className="truncate">{book.bookTitle}</p>
+                </h5>
+                <div className="flex-grow">
+                  <p className="font-normal text-gray-700 dark:text-gray-400 text-justify line-clamp-4">
+                    {book.bookDescription}
+                  </p>
+                </div>
+                <button className="mt-4 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2">
+                  Buy Now
+                </button>
+              </div>
             </Card>
           </Link>
         ))}
